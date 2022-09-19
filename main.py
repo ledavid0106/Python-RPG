@@ -17,13 +17,11 @@ def intro():
     intros = input("Would you like a review on how attacks and power dynamics work? Y or N ")
     if intros == "Y":
         print("Each entity has a base amount of health and attack power. They will also have 4 different 'moves' that they can perform! Some will do damage while others can provide buffs. For the 'moves' that can do damage, the base attack power will be added to the number that follows the 'move' and will inflict # amount of damage to the opponent.")
-        print("Let's get started!")
+        start()
     else:
-        print("Let's get started!")    
-def her_status():
-    print(f"Hercules currently has Health: {hercules['health']} and Attack Power: {hercules['attack_power']}")
-def hyd_status():
-    print(f"The {enemy} has Health: {hydra['health']} and Attack Power: {hydra['attack_power']}")    
+        start()
+def start():
+    print("Let's get started!")   
 def starting():
     print("Welcome to the world of the Greek Gods! A world full of wonders and mysteries but also leeks danger. ")
 def herc():
@@ -31,19 +29,35 @@ def herc():
     print(f"Let's take a look at how our Hero is doing. ")
 def hyd():
     print("Seems like the monster our Hero is fighting is the 9 Headed Lernaean Hydra!")
+def her_status():
+    print(f"Hercules currently has Health: {hercules['health']} and Attack Power: {hercules['attack_power']}")
+def hyd_status():
+    print(f"The {enemy} has Health: {hydra['health']} and Attack Power: {hydra['attack_power']}")    
+def att_move(move):
+    if move == "Slash":
+        return 50
+    if move == "Take Aim":
+        return 80
+    if move == "Thunderbolt":
+        return 100
 def menu(moves):
     move = input(f"What move would you like to use? {(moves)} ")
-
+    if move == "Hype":
+        att = hercules.get("attack_power")
+        att += 25
+        global hercules
+        hercules["attack_power"] = att
+        print(f"Hercules attack power has risen to {hercules.get('attack_power')}")
+    else:
+        hydra_health = hydra.get("health")
+        herc_att = (hercules["attack_power"] + att_move(move))
+        result = (hydra_health - herc_att)
+        global hydra
+        hydra["health"] = result
+        print(f"Hercules has used {move}!")
+        print(f"Hydra now has {hydra['health']} health remaining")
 def enemy(moves):
     return random.choice(moves)
 def log():
     
     print(f"Hercules has used {menu}! {enemy} now has ")
-    hea = hercules.get("health")
-    # hydra.get("health") -  
-    result = (hydr - hea)
-    print(result)
-    # print(f"Hercules has used {menu}!")
-log()
- 
-print(hercules.get("attack_power"))
